@@ -1,0 +1,49 @@
+name: team_sync dev deployment
+# run when code is pushed to main branch
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.10.0]
+
+    env:
+      PORT: 8000
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: bun install
+
+        name: Install client deps
+        run: | 
+          cd client
+          bun install
+
+        name: Build client
+        run: | 
+            cd client 
+            bun run build
+
+      - name: Clear source code folder
+        run: |
+          cd /home/yash
+          rm -rf expense_tracker
+          mkdir expense_tracker
+
+      - name: Copy standalone directory
+        run: cp -a ./ /home/yash/expense_tracker
+
+      - name: Clear pm2 logs before restart
+        run: pm2 flush
+
+      - name: Restart pm2
+        run: pm2 restart expense_tracker --update-env
