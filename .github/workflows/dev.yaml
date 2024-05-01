@@ -20,23 +20,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: bun install
-
-      - name: Install client deps
-        run: | 
-          cd client
-          bun install
-          bun run build
-
       - name: Clear source code folder
         run: |
           cd /home/yash
           rm -rf expense_tracker
           mkdir expense_tracker
 
-      - name: Copy standalone directory
-        run: cp * /home/yash/expense_tracker
+      - name: Copy source code to folder
+        run: cp -r * /home/yash/expense_tracker
+
+      - name: Install server dependencies
+        run: |
+                cd /home/yash/expense_tracker
+                bun install
+
+      - name: Install client deps
+        run: | 
+                cd /home/yash/expense_tracker/client
+                bun install
+      
+      - name: Build client 
+        run: |
+                cd /home/yash/expense_tracker
+                bun run build
+                find /home/yash/expense_tracker/client ! -name 'dist' -delete
 
       - name: Clear pm2 logs before restart
         run: pm2 flush
