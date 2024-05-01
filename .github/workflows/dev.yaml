@@ -41,7 +41,7 @@ jobs:
       
       - name: Build client 
         run: |
-                cd /home/yash/expense_tracker
+                cd /home/yash/expense_tracker/client
                 bun run build
                 find /home/yash/expense_tracker/client ! -name 'dist' -delete
 
