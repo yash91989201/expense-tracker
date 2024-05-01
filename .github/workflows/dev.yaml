@@ -23,12 +23,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-        name: Install client deps
+      - name: Install client deps
         run: | 
           cd client
           bun install
 
-        name: Build client
+      - name: Build client
         run: | 
             cd client 
             bun run build
