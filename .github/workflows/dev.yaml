@@ -27,11 +27,7 @@ jobs:
         run: | 
           cd client
           bun install
-
-      - name: Build client
-        run: | 
-            cd client 
-            bun run build
+          bun run build
 
       - name: Clear source code folder
         run: |
@@ -40,7 +36,7 @@ jobs:
           mkdir expense_tracker
 
       - name: Copy standalone directory
-        run: cp -a ./ /home/yash/expense_tracker
+        run: cp * /home/yash/expense_tracker
 
       - name: Clear pm2 logs before restart
         run: pm2 flush
