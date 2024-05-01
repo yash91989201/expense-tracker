@@ -17,7 +17,7 @@ export default function App() {
 	const getTotalSpent = async () => {
 		const res = await fetch("/api/expenses/total-spent");
 		const data = await res.json();
-		console.log(data);
+		setTotalSpent(data.amount);
 	};
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ export default function App() {
 		<>
 			<Card className="w-[350px] mx-auto">
 				<CardHeader>
-					<CardTitle>Total spent</CardTitle>
+					<CardTitle>Total spent </CardTitle>
 					<CardDescription>total amount spent</CardDescription>
 				</CardHeader>
 				<CardContent>
