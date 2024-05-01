@@ -17,7 +17,7 @@ export default function App() {
 	const getTotalSpent = async () => {
 		const res = await fetch("/api/expenses/total-spent");
 		const data = await res.json();
-		setTotalSpent(data.amount);
+		setTotalSpent(data.amount + 100);
 	};
 
 	useEffect(() => {
